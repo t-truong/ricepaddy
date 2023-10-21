@@ -1,0 +1,54 @@
+#!/bin/zsh
+####################################################################################################
+#                ___   ___                          ___   ___                                                  
+#  \\ / /           / /            /|    / /           / /         /__  ___/         //   ) )         //   ) ) 
+#   \  /           / /            //|   / /           / /            / /            //___/ /         //        
+#   / /           / /            // |  / /           / /            / /            / ___ (          //         
+#  / /\\         / /            //  | / /           / /            / /            //   | |         //          
+# / /  \\     __/ /___         //   |/ /         __/ /___         / /            //    | |        ((____/ /    
+# by t-truong
+# Initialization file for { xinit }
+#
+# Must also edit "xprofile" file to match this file if changes are made
+####################################################################################################
+#Eye Candies========================================================================================
+feh --no-fehbg --bg-center /usr/share/images/AmegakureOverlook.png &
+picom --config ~/.config/picom/picom.conf &
+slstatus &
+#Send Keys==========================================================================================
+#simulate pressing [Win]+[1] to switch to desired tag
+xdotool key --repeat 5 --delay 50 "Super_L+1"  &
+#Open Applications==================================================================================
+#open st then run tmux
+sleep 0.25 && st -T 'stinit' -e zsh -c 'export LINES COLUMNS; tmux -f ~/.config/tmux/tmux.config attach; zsh' &
+#open brave browser
+sleep 0.25 && brave &
+
+
+
+
+
+# Commands above that have a delay in them are so that they are run AFTER "exec dwm" because
+# they require dwm to start before being run. This is because:
+#    1) xdotool can't simulate key press to switch tag because there are no tags to switch without dwm
+#    2) st can open before dwm but because of custom dwm windowing rule, starting dwm after st will
+#       cause the window to resize as a float window and then back to a tile. This behavior is fine, however,
+#       the resizing messes up tmux's custom pane sizing. Therefore, st and tmux must start after dwm to avoid
+#       the resizing altogether.
+#    3) probably also 2) for brave browser
+# 
+# The reason these commands that should run after dwm but given before "exec dwm" is
+# that "exec dwm" must be the last command given to xinit in order for it to work properly.
+# So a delay of 250ms is given which is long enough for dwm to completely
+# start and short enough that is imperceptible to the user.
+exec dwm
+####################################################################################################
+#                ___   ___                          ___   ___                                                  
+#  \\ / /           / /            /|    / /           / /         /__  ___/         //   ) )         //   ) ) 
+#   \  /           / /            //|   / /           / /            / /            //___/ /         //        
+#   / /           / /            // |  / /           / /            / /            / ___ (          //         
+#  / /\\         / /            //  | / /           / /            / /            //   | |         //          
+# / /  \\     __/ /___         //   |/ /         __/ /___         / /            //    | |        ((____/ /    
+# by t-truong
+# Initialization file for { xinit }
+####################################################################################################

@@ -1,0 +1,105 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 ___   ___                                                       
+" ||   / /           / /            /|    //| |         //   ) )         //   ) ) 
+" ||  / /           / /            //|   // | |        //___/ /         //        
+" || / /           / /            // |  //  | |       / ___ (          //         
+" ||/ /           / /            //  | //   | |      //   | |         //          
+" |  /         __/ /___         //   |//    | |     //    | |        ((____/ /    
+" by t-truong
+" Initialization file for { vim }
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+"Paths==============================================================================================
+let b:Path_config = '~/.config/vim'
+
+
+
+
+
+"Behavior===========================================================================================
+set number rnu tabstop=4 shiftwidth=4 smarttab expandtab hlsearch splitbelow splitright ruler
+let g:netrw_bufsettings='noma nomod nu nowrap ro nobl' "opening netrw basically unloads vimrc, this loads it back
+set backspace=indent,eol,start "using 'vim -N' causes weird backspace behavior, this fixes it
+set mouse=a "allow scrolling in through vim in tmux instead of tmux buffer
+
+set viminfo='10,<250,s100 "https://stackoverflow.com/questions/3676855/vim-limited-line-memory
+let &viminfofile=b:Path_config .. '/viminfo'
+
+autocmd BufNewfile,BufRead * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd VimResized * wincmd = "resizes all split screens equally every time the parent terminal is resized
+
+
+
+
+
+"Key Maps===============================================================================================
+autocmd Filetype vim let b:comment = '" '
+autocmd Filetype python,zsh,sh,yaml,make let b:comment = '# '
+autocmd Filetype c,h,cpp,hpp let b:comment = '// '
+noremap <silent> <buffer> <Space> :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment,'\/')<CR>/<CR>:noh<CR>j
+noremap <silent> <buffer> <C-N> :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment,'\/')<CR>//e<CR>:noh<CR>j
+
+"{c} {i}n {n}um mapping
+function! Numbers()
+    call search('\d\([^0-9\.e+-]\|$\)', 'cW')
+    normal v
+    call search('\(^\|[^0-9\.e+-]-\|[^0-9\.e+-]+\|[^0-9\.e+-]\d\)', 'becW')
+endfunction
+xnoremap in :<C-u>call Numbers()<CR>
+onoremap in :normal vin<CR>
+
+
+
+
+
+"Functions==========================================================================================
+function! FindMain()
+    try
+        if (&filetype == 'python')
+            :/__name__ == .__main__./
+        elseif (&filetype == 'cpp')
+            :/^int main/
+        endif
+    catch
+        echom("FindMain(): main function not found in file")
+    endtry
+endfunction
+
+
+
+
+
+"Visuals=========================================================================================
+set regexpengine=1 "fixes syntax highlighting issue that slows even small YAML files down
+
+"see https://stackoverflow.com/a/49828161
+exe 'set runtimepath='.&runtimepath.','.b:Path_config .. '/pack/themes/start/dracula'
+if &diff
+    colorscheme dracula
+else
+    colorscheme dracula
+endif
+let g:dracula_colorterm= 0
+let g:dracula_italic= 0
+
+syntax enable
+retab!
+
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 ___   ___                                                       
+" ||   / /           / /            /|    //| |         //   ) )         //   ) ) 
+" ||  / /           / /            //|   // | |        //___/ /         //        
+" || / /           / /            // |  //  | |       / ___ (          //         
+" ||/ /           / /            //  | //   | |      //   | |         //          
+" |  /         __/ /___         //   |//    | |     //    | |        ((____/ /    
+" by t-truong
+" Initialization file for { vim }
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

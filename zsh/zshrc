@@ -1,0 +1,181 @@
+####################################################################################################
+#    ___                                                                         
+#     / /         //   ) )         //    / /         //   ) )         //   ) ) 
+#    / /         ((               //___ / /         //___/ /         //        
+#   / /            \\            / ___   /         / ___ (          //         
+#  / /               ) )        //    / /         //   | |         //          
+# / /___      ((___ / /        //    / /         //    | |        ((____/ /    
+# by t-truong
+# Initialization file for { zsh }
+####################################################################################################
+
+
+
+
+
+#Paths==============================================================================================
+#ricepaddy directory is the grandparent directory of this zshrc file
+#edit files in the ricepaddy then load them to their properly paths
+#this makes distributing/reusing the MANY configuration files on other Linux systems easier
+local Path_ricepaddy=/home/tmt/01_General/ricepaddy
+#system paths
+local Path_bashprofile="$Path_ricepaddy/bash/bash_profile"
+local Path_bashrc="$Path_ricepaddy/bash/bashrc"
+local Path_inputrc="$Path_ricepaddy/bash/inputrc"
+local Path_zprofile="$Path_ricepaddy/zsh/zprofile"
+local Path_zshrc="$Path_ricepaddy/zsh/zshrc"
+local Path_xinitrc="$Path_ricepaddy/X/xinitrc"
+#user paths
+local Path_vimrc="$Path_ricepaddy/vim/vimrc"
+local Path_tmuxconfig="$Path_ricepaddy/tmux/tmux.config"
+local Path_picomconfig="$Path_ricepaddy/picom/picom.conf"
+local Path_xmr="$HOME/00_MyInstalls/monero"
+
+
+
+
+
+#Behavior===========================================================================================
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle :compinstall filename '/home/tmt/.zshrc'
+autoload -Uz compinit && compinit
+HISTFILE=~/.zhistfile
+HISTSIZE=500
+SAVEHIST=500
+
+unsetopt BEEP #disable beep
+umask 077
+#exports
+export LESSHISTFILE=- #disable ~/.lesshst
+export GIT_CONFIG_GLOBAL="$Path_ricepaddy/git/gitconfig"
+
+
+
+
+
+#Alias and Functions================================================================================
+#User Section---------------------------------------------------------------------------------------
+alias loadconfigs="$Path_ricepaddy/loadConfigs.zsh"
+#config files
+alias vimrc="vim $Path_vimrc"
+alias tmuxconfig="vim $Path_tmuxconfig"
+alias picomconfig="vim $Path_picomconfig"
+#commands
+alias vim="vim -Nu $Path_vimrc"
+alias vimdiff="vimdiff -Nu $Path_vimrc"
+alias tmux="tmux -f $Path_tmuxconfig attach"
+alias feh="feh -g 640x480 -d"
+alias brave="brave > /dev/null 2>&1 &"
+alias xmrwallet="$Path_xmr/monero-x86_64-linux-gnu-v0.18.2.2/monero-wallet-cli --config-file $Path_xmr/00_Data/xmrwallet.config"
+alias xmrig="sudo $Path_xmr/xmrig/build/xmrig" #must use sudo to enable MSR to increase speed
+#System Section-------------------------------------------------------------------------------------
+#variables
+local Mouse_name="Corsair CORSAIR HARPOON RGB PRO Gaming Mouse" #exact string from "xinput --list"
+                                                                #used to disable mouse movement on turning off screen
+#config files
+alias bashprofile="vim $Path_bashprofile"
+alias bashrc="vim $Path_bashr"
+alias sbashrc="source $Path_bashrc"
+alias inputrc="source $Path_inputrc"
+alias zprofile="vim $Path_zprofile"
+alias zshrc="vim $Path_zshrc"
+alias szshrc="source $Path_zshrc"
+alias xinitrc="vim $Path_xinitrc"
+#commands
+alias ls="ls --color=auto -v"
+alias ll="ls --color=auto -lvah"
+function cd() { builtin cd "${@}"; ls }
+alias cdd="cd ../"
+alias cddd="cd ../../"
+alias cdddd="cd ../../../"
+alias cddddd="cd ../../../../"
+alias cdddddd="cd ../../../../../"
+
+function screenoff
+{
+    local id=$(xinput --list | grep "$Mouse_name" | grep -Po "(?<=id\=)\d*")
+    xinput --disable "$id" #doesn't actually work because of some bs
+    dm-tool lock
+    xinput --enable "$id"
+}
+
+
+
+
+
+#Key Binds==========================================================================================
+bindkey "^K" kill-line #binds CTRL+K to delete from cursor to end of line, this is automatic is bash but has to explicit set in zsh
+bindkey "^U" backward-kill-line #binds CTRL+U to delete from cursor to beginning of line, this is automatic in bash but has to explicit set in zsh
+bindkey -v; export KEYTIMEOUT=1 #hit ESC to enter vi-mode and set delay to 10ms
+bindkey "^[[1~" beginning-of-line #binds Home to go to start of line just like bash
+bindkey "^[[4~" end-of-line #binds End to go to end of line just like bash
+bindkey "^?" backward-delete-char #backspace will delete characters typed previous to entering vi-mode
+
+bindkey "^[[B" history-beginning-search-forward
+bindkey "^[[A" history-beginning-search-backward
+
+
+
+
+
+#Visual Settings====================================================================================
+export PROMPT="%F{#808080}[%f%F{#00FFAF}%n%f@%F{#D75FFF}%M%f %F{#808080}%D %T%f %F{#8787FF}%1~%f%F{#808080}]%f " #PS1 equivalent for zsh
+export LS_COLORS="fi=00;97:di=00;94:ln=00;96:bd=00;93:or=00;96;101:mi=00;97;101:ex=00;92:*.png=00;95:*.jpg=00;95:*.jpeg=00;95"
+#Change cursor shape for different vi-modes---------------------------------------------------------
+function zle-keymap-select
+{
+    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+        echo -ne '\e[1 q'
+    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} == '' ]] || [[ $1 = 'line' ]]; then
+        echo -ne '\e[5 q'
+    fi
+}
+zle -N zle-keymap-select
+zle-line-init()
+{
+    zle -K viins
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[1 q' #default to block cursor
+preexec() { echo -ne '\e[1 q' ;} #use block cursor on each new prompt
+#End------------------------------------------------------------------------------------------------
+
+
+#Dracula Syntax Highlighting------------------------------------------------------------------------
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
+typeset -gA ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#6272A4'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[global-alias]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[command]='fg=#50FA7B'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#50FA7B,italic'
+ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=#FFB86C,italic'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#FFB86C'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#FFB86C'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#BD93F9'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#8BE9FD'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#8BE9FD'
+ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=#8BE9FD'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#FF79C6'
+source /home/tmt/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#End Dracula Syntax Highlighting--------------------------------------------------------------------
+
+
+
+
+
+####################################################################################################
+#    ___                                                                         
+#     / /         //   ) )         //    / /         //   ) )         //   ) ) 
+#    / /         ((               //___ / /         //___/ /         //        
+#   / /            \\            / ___   /         / ___ (          //         
+#  / /               ) )        //    / /         //   | |         //          
+# / /___      ((___ / /        //    / /         //    | |        ((____/ /    
+# by t-truong
+# Initialization file for { zsh }
+####################################################################################################

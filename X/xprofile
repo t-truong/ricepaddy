@@ -1,0 +1,49 @@
+#!/bin/zsh
+####################################################################################################
+#                                                                                    ___   ___                                 
+#  \\ / /         //   ) )         //   ) )         //   ) )         //   / /           / /            / /            //   / / 
+#   \  /         //___/ /         //___/ /         //   / /         //___              / /            / /            //____    
+#   / /         / ____ /         / ___ (          //   / /         / ___              / /            / /            / ____     
+#  / /\\       //               //   | |         //   / /         //                 / /            / /            //          
+# / /  \\     //               //    | |        ((___/ /         //               __/ /___         / /____/ /     //____/ /    
+# by t-truong
+# Initialization file for { xinit/LightDM }
+#
+# Specifically, this file is called during LightDM initialization.
+# "/etc/lightdm/Xsession" is called when starting LightDM and that file executes "~/.xprofile"
+#
+# This file should basically be the same as "~/.xinitrc" except this file does not "exec" a window
+# manager as its last command. The window manager is run through LightDM.
+####################################################################################################
+
+
+
+
+
+#Eye Candies========================================================================================
+feh --no-fehbg --bg-center ~/01_General/wallpapers/AmegakureOverlook.png &
+picom --config ~/.config/picom/picom.conf &
+slstatus &
+#Send Keys==========================================================================================
+#simulate pressing [Win]+[1] to switch to desired tag
+xdotool key --repeat 5 --delay 50 "Super_L+1"  &
+#Open Applications==================================================================================
+#open st then run tmux
+sleep 0.25 && st -T 'stinit' -e zsh -c 'export LINES COLUMNS; tmux -f ~/.config/tmux/tmux.config attach; zsh' &
+#open brave browser
+sleep 0.25 && brave &
+
+
+
+
+
+####################################################################################################
+#                                                                                    ___   ___                                 
+#  \\ / /         //   ) )         //   ) )         //   ) )         //   / /           / /            / /            //   / / 
+#   \  /         //___/ /         //___/ /         //   / /         //___              / /            / /            //____    
+#   / /         / ____ /         / ___ (          //   / /         / ___              / /            / /            / ____     
+#  / /\\       //               //   | |         //   / /         //                 / /            / /            //          
+# / /  \\     //               //    | |        ((___/ /         //               __/ /___         / /____/ /     //____/ /    
+# by t-truong
+# Initialization file for { xinit/LightDM }
+####################################################################################################
