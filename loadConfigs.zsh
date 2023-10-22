@@ -16,6 +16,7 @@
 
 
 
+if [ "$EUID" -ne 0 ]; then echo "This script needs to be executed as root"; exit; fi
 autoload colors && colors
 #Initialization-------------------------------------------------------------------------------------
 Path_ScriptDirectory=${0:a:h} #absolute path of this script's directory
@@ -31,6 +32,8 @@ mkdir -p "$DestinationPath_images"
 
 cp "$OriginPath_image1" "$DestinationPath_images"
 cp "$OriginPath_image2" "$DestinationPath_images"
+chown root "$DestinationPath_images/AmegakureOverlook.png" "$DestinationPath_images/ArchLinuxLogo.png"
+chmod 644 "$DestinationPath_images/AmegakureOverlook.png" "$DestinationPath_images/ArchLinuxLogo.png"
 #X--------------------------------------------------------------------------------------------------
 OriginPath_xinitrc="$Path_ScriptDirectory/X/xinitrc"
 OriginPath_xprofile="$Path_ScriptDirectory/X/xprofile"
@@ -57,6 +60,17 @@ echo "Loading { $fg[cyan]bash$reset_color } configuration..."
 cp "$OriginPath_bashrc" "$DestinationPath_bashrc"
 cp "$OriginPath_bashprofile" "$DestinationPath_bashprofile"
 cp "$OriginPath_inputrc" "$DestinationPath_inputrc"
+#lightdm--------------------------------------------------------------------------------------------
+OriginPath_lightdmconf="$Path_ScriptDirectory/lightdm/lightdm.conf"
+OriginPath_lightdmgreeterconf="$Path_ScriptDirectory/lightdm/lightdm-gtk-greeter.conf"
+DestinationPath_lightdm="/etc/lightdm"
+
+if [[ ! -d "$DestinationPath_lightdm" ]]; then
+    echo "$fg[red]Error:$reset_color Directory { $fg[cyan]$DestinationPath_lightdm$reset_color } not found"
+    echo "$fg[red]Error:$reset_color { $fg[cyan]lightdm$reset_color } package likely not installed"
+    exit 1
+fi
+echo "Loading { $fg[cyan]lightdm$reset_color } configuration..."
 #git------------------------------------------------------------------------------------------------
 echo -n "Nothing to load for { $fg[cyan]git$reset_color }. \$GIT_CONFIG_GLOBAL environment variable set in \"zshrc\" tells "
 echo    "git to read/write configurations directly to ricepaddy"
@@ -104,11 +118,12 @@ sed -i -E "s|local Path_ricepaddy=.*|local Path_ricepaddy=${Path_ScriptDirectory
 cp "$OriginPath_zprofile" "$DestinationPath_zprofile"
 cp "$OriginPath_zshrc" "$DestinationPath_zshrc"
 #Exit-----------------------------------------------------------------------------------------------
-if [[ "$SHELL" == "/bin/bash" ]]; then
-    echo "Current shell is { $fg[cyan]$SHELL$reset_color }, sourcing bash configurations..."
+ShellToLoad="/bin/zsh"
+if [[ "$ShellToLoad" == "/bin/bash" ]]; then
+    echo "Current shell is { $fg[cyan]$ShellToLoad$reset_color }, sourcing bash configurations..."
     source "$DestinationPath_bashrc"
-elif [[ "$SHELL" == "/bin/zsh" ]]; then
-    echo "Current shell is { $fg[cyan]$SHELL$reset_color }, sourcing zsh configurations..."
+elif [[ "$ShellToLoad" == "/bin/zsh" ]]; then
+    echo "Current shell is { $fg[cyan]$ShellToLoad$reset_color }, sourcing zsh configurations..."
     source "$DestinationPath_zshrc"
 fi
 

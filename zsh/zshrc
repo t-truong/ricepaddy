@@ -24,11 +24,15 @@ local Path_bashrc="$Path_ricepaddy/bash/bashrc"
 local Path_inputrc="$Path_ricepaddy/bash/inputrc"
 local Path_zprofile="$Path_ricepaddy/zsh/zprofile"
 local Path_zshrc="$Path_ricepaddy/zsh/zshrc"
+local Path_xprofile="$Path_ricepaddy/X/xprofile"
+local Path_xserverrc="$Path_ricepaddy/X/xserverrc"
 local Path_xinitrc="$Path_ricepaddy/X/xinitrc"
 #user paths
 local Path_vimrc="$Path_ricepaddy/vim/vimrc"
 local Path_tmuxconfig="$Path_ricepaddy/tmux/tmux.config"
 local Path_picomconfig="$Path_ricepaddy/picom/picom.conf"
+local Path_lightdmconf="$Path_ricepaddy/lightdm/lightdm.conf"
+local Path_lightdmgreeterconf="$Path_ricepaddy/lightdm/lightdm-gtk-greeter.conf"
 local Path_xmr="$HOME/00_MyInstalls/monero"
 
 
@@ -57,11 +61,14 @@ export GIT_CONFIG_GLOBAL="$Path_ricepaddy/git/gitconfig"
 
 #Alias and Functions================================================================================
 #User Section---------------------------------------------------------------------------------------
+alias sudo="sudo "
 alias loadconfigs="$Path_ricepaddy/loadConfigs.zsh"
 #config files
 alias vimrc="vim $Path_vimrc"
 alias tmuxconfig="vim $Path_tmuxconfig"
 alias picomconfig="vim $Path_picomconfig"
+alias lightdmconf="vim $Path_lightdmconf"
+alias lightdmgreeterconf="vim $Path_lightdmgreeterconf"
 #commands
 alias vim="vim -Nu $Path_vimrc"
 alias vimdiff="vimdiff -Nu $Path_vimrc"
@@ -82,10 +89,12 @@ alias inputrc="source $Path_inputrc"
 alias zprofile="vim $Path_zprofile"
 alias zshrc="vim $Path_zshrc"
 alias szshrc="source $Path_zshrc"
+alias xprofile="vim $Path_xprofile"
+alias xserverrc="vim $Path_xserverrc"
 alias xinitrc="vim $Path_xinitrc"
 #commands
-alias ls="ls --color=auto -v"
-alias ll="ls --color=auto -lvah"
+alias ls="ls --color=auto -v --group-directories-first"
+alias ll="ls --color=auto -lvah --group-directories-first"
 function cd() { builtin cd "${@}"; ls }
 alias cdd="cd ../"
 alias cddd="cd ../../"

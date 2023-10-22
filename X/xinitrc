@@ -12,7 +12,7 @@
 # Must also edit "xprofile" file to match this file if changes are made
 ####################################################################################################
 #Eye Candies========================================================================================
-feh --no-fehbg --bg-center /usr/share/images/AmegakureOverlook.png &
+feh --no-fehbg --bg-center /usr/share/pixmaps/AmegakureOverlook.png &
 picom --config ~/.config/picom/picom.conf &
 slstatus &
 #Send Keys==========================================================================================

@@ -21,7 +21,7 @@
 
 
 #Eye Candies========================================================================================
-feh --no-fehbg --bg-center ~/01_General/wallpapers/AmegakureOverlook.png &
+feh --no-fehbg --bg-center /usr/share/pixmaps/AmegakureOverlook.png &
 picom --config ~/.config/picom/picom.conf &
 slstatus &
 #Send Keys==========================================================================================
