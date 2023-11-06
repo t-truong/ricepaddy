@@ -22,6 +22,10 @@ if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
 fi
 exec ssh-agent zsh
 
+local Mouse_name="Corsair CORSAIR HARPOON RGB PRO Gaming Mouse" #exact string from "xinput --list"
+                                                                #used to disable mouse movement on turning off screen
+local id=$(xinput --list | grep "$Mouse_name" | grep -Po "(?<=id\=)\d*")
+xinput --enable "$id"
 
 
 

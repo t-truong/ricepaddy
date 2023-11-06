@@ -24,7 +24,7 @@ InstallFlags="-S"             #Install new package/groups
 
 Path_ScriptDirectory=${0:a:h} #absolute path of this script's directory
 PackageGroups=("xorg")
-Packages=("ttf-space-mono-nerd" "picom" "tmux" "feh" "lightdm" "lightdm-gtk-greeter"
+Packages=("ttf-space-mono-nerd" "picom" "tmux" "feh" "xdotool" "lightdm" "lightdm-gtk-greeter"
           "openssh")
 StandalonePackages=("/suckless/dwm" "/suckless/slstatus" "/suckless/st")
 $PackageManager $RefreshFlags

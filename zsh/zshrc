@@ -13,10 +13,11 @@
 
 
 
-#Paths==============================================================================================
+#Variables==========================================================================================
 #ricepaddy directory is the grandparent directory of this zshrc file
 #edit files in the ricepaddy then load them to their properly paths
 #this makes distributing/reusing the MANY configuration files on other Linux systems easier
+#the path immediately below is editted by "loadConfigs.zsh", do not manually change
 local Path_ricepaddy=/home/tmt/01_General/ricepaddy
 #system paths
 local Path_bashprofile="$Path_ricepaddy/bash/bash_profile"
@@ -34,6 +35,10 @@ local Path_picomconfig="$Path_ricepaddy/picom/picom.conf"
 local Path_lightdmconf="$Path_ricepaddy/lightdm/lightdm.conf"
 local Path_lightdmgreeterconf="$Path_ricepaddy/lightdm/lightdm-gtk-greeter.conf"
 local Path_xmr="$HOME/00_MyInstalls/monero"
+#system variables
+local UID=$(grep ^"$USER" /etc/group | grep -Po "(?<=$(whoami):x:)\d*")
+local Mouse_name="Corsair CORSAIR HARPOON RGB PRO Gaming Mouse" #exact string from "xinput --list"
+                                                                #used to disable mouse movement on turning off screen
 
 
 
@@ -44,7 +49,7 @@ zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle :compinstall filename '/home/tmt/.zshrc'
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -d ~/.cache/zsh/zcompdump
 HISTFILE=~/.zhistfile
 HISTSIZE=500
 SAVEHIST=500
@@ -77,10 +82,16 @@ alias feh="feh -g 640x480 -d"
 alias brave="brave > /dev/null 2>&1 &"
 alias xmrwallet="$Path_xmr/monero-x86_64-linux-gnu-v0.18.2.2/monero-wallet-cli --config-file $Path_xmr/00_Data/xmrwallet.config"
 alias xmrig="sudo $Path_xmr/xmrig/build/xmrig" #must use sudo to enable MSR to increase speed
+
+function encrypt
+{
+    gpg --symmetric --cipher-algo aes256 --no-symkey-cache -o "$1" "$2"
+}
+function decrypt
+{
+    gpg --no-symkey-cache -o "$1" --decrypt "$2"
+}
 #System Section-------------------------------------------------------------------------------------
-#variables
-local Mouse_name="Corsair CORSAIR HARPOON RGB PRO Gaming Mouse" #exact string from "xinput --list"
-                                                                #used to disable mouse movement on turning off screen
 #config files
 alias bashprofile="vim $Path_bashprofile"
 alias bashrc="vim $Path_bashr"
@@ -102,10 +113,11 @@ alias cdddd="cd ../../../"
 alias cddddd="cd ../../../../"
 alias cdddddd="cd ../../../../../"
 
+alias mount="mount -o rw,user,uid=$UID,dmask=007,fmask=117"
 function screenoff
 {
     local id=$(xinput --list | grep "$Mouse_name" | grep -Po "(?<=id\=)\d*")
-    xinput --disable "$id" #doesn't actually work because of some bs
+    xinput --disable "$id"
     dm-tool lock
     xinput --enable "$id"
 }

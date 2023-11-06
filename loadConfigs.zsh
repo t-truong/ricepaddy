@@ -16,11 +16,12 @@
 
 
 
-if [ "$EUID" -ne 0 ]; then echo "This script needs to be executed as root"; exit; fi
+if [ "$EUID" -ne 0 ]; then echo "This script needs to be executed as superuser"; exit; fi
+USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6)
 autoload colors && colors
 #Initialization-------------------------------------------------------------------------------------
 Path_ScriptDirectory=${0:a:h} #absolute path of this script's directory
-Path_ConfigDirectory="$HOME/.config"
+Path_ConfigDirectory="$USER_HOME/.config"
 mkdir -p "$Path_ConfigDirectory"
 #00_Images------------------------------------------------------------------------------------------
 OriginPath_image1="$Path_ScriptDirectory/00_Images/AmegakureOverlook.png"
@@ -32,15 +33,16 @@ mkdir -p "$DestinationPath_images"
 
 cp "$OriginPath_image1" "$DestinationPath_images"
 cp "$OriginPath_image2" "$DestinationPath_images"
-chown root "$DestinationPath_images/AmegakureOverlook.png" "$DestinationPath_images/ArchLinuxLogo.png"
-chmod 644 "$DestinationPath_images/AmegakureOverlook.png" "$DestinationPath_images/ArchLinuxLogo.png"
+chown root "$DestinationPath_images/$OriginPath_image1:t" "$DestinationPath_images/$OriginPath_image2:t"
+chgrp root "$DestinationPath_images/$OriginPath_image1:t" "$DestinationPath_images/$OriginPath_image2:t"
+chmod 644 "$DestinationPath_images/$OriginPath_image1:t" "$DestinationPath_images/$OriginPath_image2:t"
 #X--------------------------------------------------------------------------------------------------
 OriginPath_xinitrc="$Path_ScriptDirectory/X/xinitrc"
 OriginPath_xprofile="$Path_ScriptDirectory/X/xprofile"
 OriginPath_xserverrc="$Path_ScriptDirectory/X/xserverrc"
-DestinationPath_xinitrc="$HOME/.xinitrc"
-DestinationPath_xprofile="$HOME/.xprofile"
-DestinationPath_xserverrc="$HOME/.xserverrc"
+DestinationPath_xinitrc="$USER_HOME/.xinitrc"
+DestinationPath_xprofile="$USER_HOME/.xprofile"
+DestinationPath_xserverrc="$USER_HOME/.xserverrc"
 
 echo "Loading { $fg[cyan]xinit$reset_color } configuration..."
 
@@ -51,9 +53,9 @@ cp "$OriginPath_xserverrc" "$DestinationPath_xserverrc"
 OriginPath_bashrc="$Path_ScriptDirectory/bash/bashrc"
 OriginPath_bashprofile="$Path_ScriptDirectory/bash/bash_profile"
 OriginPath_inputrc="$Path_ScriptDirectory/bash/inputrc"
-DestinationPath_bashrc="$HOME/.bashrc"
-DestinationPath_bashprofile="$HOME/.bash_profile"
-DestinationPath_inputrc="$HOME/.inputrc"
+DestinationPath_bashrc="$USER_HOME/.bashrc"
+DestinationPath_bashprofile="$USER_HOME/.bash_profile"
+DestinationPath_inputrc="$USER_HOME/.inputrc"
 
 echo "Loading { $fg[cyan]bash$reset_color } configuration..."
 
@@ -63,7 +65,10 @@ cp "$OriginPath_inputrc" "$DestinationPath_inputrc"
 #lightdm--------------------------------------------------------------------------------------------
 OriginPath_lightdmconf="$Path_ScriptDirectory/lightdm/lightdm.conf"
 OriginPath_lightdmgreeterconf="$Path_ScriptDirectory/lightdm/lightdm-gtk-greeter.conf"
+OriginPath_lightdm_enableMouse="$Path_ScriptDirectory/lightdm/lightdm-enableMouse.sh"
+OriginPath_lightdm_disableMouse="$Path_ScriptDirectory/lightdm/lightdm-disableMouse.sh"
 DestinationPath_lightdm="/etc/lightdm"
+DestinationPath_scripts="/usr/share"
 
 if [[ ! -d "$DestinationPath_lightdm" ]]; then
     echo "$fg[red]Error:$reset_color Directory { $fg[cyan]$DestinationPath_lightdm$reset_color } not found"
@@ -71,6 +76,15 @@ if [[ ! -d "$DestinationPath_lightdm" ]]; then
     exit 1
 fi
 echo "Loading { $fg[cyan]lightdm$reset_color } configuration..."
+mkdir -p "$DestinationPath_scripts"
+
+cp "$OriginPath_lightdmconf" "$DestinationPath_lightdm"
+cp "$OriginPath_lightdmgreeterconf" "$DestinationPath_lightdm"
+cp "$OriginPath_lightdm_enableMouse" "$DestinationPath_scripts"
+cp "$OriginPath_lightdm_disableMouse" "$DestinationPath_scripts"
+chown root "$DestinationPath_scripts/$OriginPath_lightdm_enableMouse:t" "$DestinationPath_scripts/$OriginPath_lightdm_disableMouse:t"
+chgrp root "$DestinationPath_scripts/$OriginPath_lightdm_enableMouse:t" "$DestinationPath_scripts/$OriginPath_lightdm_disableMouse:t"
+chmod 755 "$DestinationPath_scripts/$OriginPath_lightdm_enableMouse:t" "$DestinationPath_scripts/$OriginPath_lightdm_disableMouse:t"
 #git------------------------------------------------------------------------------------------------
 echo -n "Nothing to load for { $fg[cyan]git$reset_color }. \$GIT_CONFIG_GLOBAL environment variable set in \"zshrc\" tells "
 echo    "git to read/write configurations directly to ricepaddy"
@@ -105,8 +119,8 @@ rsync -a "$OriginPath_dracula" "$DestinationPath_dracula" \
 #zsh------------------------------------------------------------------------------------------------
 OriginPath_zprofile="$Path_ScriptDirectory/zsh/zprofile"
 OriginPath_zshrc="$Path_ScriptDirectory/zsh/zshrc"
-DestinationPath_zprofile="$HOME/.zprofile"
-DestinationPath_zshrc="$HOME/.zshrc"
+DestinationPath_zprofile="$USER_HOME/.zprofile"
+DestinationPath_zshrc="$USER_HOME/.zshrc"
 
 echo "Loading { $fg[cyan]zsh$reset_color } configuration..."
 #replace ricepaddy variable in zshrc to proper path
@@ -118,14 +132,7 @@ sed -i -E "s|local Path_ricepaddy=.*|local Path_ricepaddy=${Path_ScriptDirectory
 cp "$OriginPath_zprofile" "$DestinationPath_zprofile"
 cp "$OriginPath_zshrc" "$DestinationPath_zshrc"
 #Exit-----------------------------------------------------------------------------------------------
-ShellToLoad="/bin/zsh"
-if [[ "$ShellToLoad" == "/bin/bash" ]]; then
-    echo "Current shell is { $fg[cyan]$ShellToLoad$reset_color }, sourcing bash configurations..."
-    source "$DestinationPath_bashrc"
-elif [[ "$ShellToLoad" == "/bin/zsh" ]]; then
-    echo "Current shell is { $fg[cyan]$ShellToLoad$reset_color }, sourcing zsh configurations..."
-    source "$DestinationPath_zshrc"
-fi
+echo "Configurations loaded and ready to be sourced"
 
 
 
