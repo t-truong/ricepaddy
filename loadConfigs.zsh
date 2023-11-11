@@ -24,8 +24,8 @@ Path_ScriptDirectory=${0:a:h} #absolute path of this script's directory
 Path_ConfigDirectory="$USER_HOME/.config"
 mkdir -p "$Path_ConfigDirectory"
 #00_Images------------------------------------------------------------------------------------------
-OriginPath_image1="$Path_ScriptDirectory/00_Images/AmegakureOverlook.png"
-OriginPath_image2="$Path_ScriptDirectory/00_Images/ArchLinuxLogo.png"
+OriginPath_image1="$Path_ScriptDirectory/99_Images/AmegakureOverlook.png"
+OriginPath_image2="$Path_ScriptDirectory/99_Images/ArchLinuxLogo.png"
 DestinationPath_images="/usr/share/pixmaps"
 
 echo "Loading wallpapers/icons/images"

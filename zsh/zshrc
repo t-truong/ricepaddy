@@ -81,7 +81,7 @@ alias tmux="tmux -f $Path_tmuxconfig attach"
 alias feh="feh -g 640x480 -d"
 alias brave="brave > /dev/null 2>&1 &"
 alias xmrwallet="$Path_xmr/monero-x86_64-linux-gnu-v0.18.2.2/monero-wallet-cli --config-file $Path_xmr/00_Data/xmrwallet.config"
-alias xmrig="sudo $Path_xmr/xmrig/build/xmrig" #must use sudo to enable MSR to increase speed
+alias xmrig="$Path_xmr/xmrig/build/xmrig" #must use sudo to enable MSR to increase speed
 
 function encrypt
 {
