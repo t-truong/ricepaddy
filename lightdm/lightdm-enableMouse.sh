@@ -1,7 +1,7 @@
 #!/bin/bash
 ####################################################################################################
 # lightdm-enableMouse.sh
-# by t-truong
+# by (https://github.com/t-truong)
 # This script enables the mouse
 #
 # The script is called by LightDM when starting a session which enables

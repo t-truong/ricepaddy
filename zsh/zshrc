@@ -5,7 +5,7 @@
 #   / /            \\            / ___   /         / ___ (          //         
 #  / /               ) )        //    / /         //   | |         //          
 # / /___      ((___ / /        //    / /         //    | |        ((____/ /    
-# by t-truong
+# by (https://github.com/t-truong)
 # Initialization file for { zsh }
 ####################################################################################################
 
@@ -31,7 +31,7 @@ local Path_xinitrc="$Path_ricepaddy/X/xinitrc"
 #user paths
 local Path_vimrc="$Path_ricepaddy/vim/vimrc"
 local Path_tmuxconfig="$Path_ricepaddy/tmux/tmux.config"
-local Path_picomconfig="$Path_ricepaddy/picom/picom.conf"
+local Path_picomconf="$Path_ricepaddy/picom/picom.conf"
 local Path_lightdmconf="$Path_ricepaddy/lightdm/lightdm.conf"
 local Path_lightdmgreeterconf="$Path_ricepaddy/lightdm/lightdm-gtk-greeter.conf"
 local Path_xmr="$HOME/00_MyInstalls/monero"
@@ -71,7 +71,7 @@ alias loadconfigs="$Path_ricepaddy/loadConfigs.zsh"
 #config files
 alias vimrc="vim $Path_vimrc"
 alias tmuxconfig="vim $Path_tmuxconfig"
-alias picomconfig="vim $Path_picomconfig"
+alias picomconf="vim $Path_picomconf"
 alias lightdmconf="vim $Path_lightdmconf"
 alias lightdmgreeterconf="vim $Path_lightdmgreeterconf"
 #commands
@@ -197,6 +197,6 @@ source /home/tmt/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #   / /            \\            / ___   /         / ___ (          //         
 #  / /               ) )        //    / /         //   | |         //          
 # / /___      ((___ / /        //    / /         //    | |        ((____/ /    
-# by t-truong
+# by (https://github.com/t-truong)
 # Initialization file for { zsh }
 ####################################################################################################

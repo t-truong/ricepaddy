@@ -1,7 +1,7 @@
 #!/bin/bash
 ####################################################################################################
 # lightdm-disableMouse.sh
-# by t-truong
+# by (https://github.com/t-truong)
 # This script disables the mouse
 #
 # The script is called by LightDM when starting the greeter which disables

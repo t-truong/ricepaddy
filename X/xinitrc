@@ -6,7 +6,7 @@
 #   / /           / /            // |  / /           / /            / /            / ___ (          //         
 #  / /\\         / /            //  | / /           / /            / /            //   | |         //          
 # / /  \\     __/ /___         //   |/ /         __/ /___         / /            //    | |        ((____/ /    
-# by t-truong
+# by (https://github.com/t-truong)
 # Initialization file for { xinit }
 #
 # Must also edit "xprofile" file to match this file if changes are made
@@ -49,6 +49,6 @@ exec dwm
 #   / /           / /            // |  / /           / /            / /            / ___ (          //         
 #  / /\\         / /            //  | / /           / /            / /            //   | |         //          
 # / /  \\     __/ /___         //   |/ /         __/ /___         / /            //    | |        ((____/ /    
-# by t-truong
+# by (https://github.com/t-truong)
 # Initialization file for { xinit }
 ####################################################################################################

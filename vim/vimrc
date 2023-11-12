@@ -5,7 +5,7 @@
 " || / /           / /            // |  //  | |       / ___ (          //         
 " ||/ /           / /            //  | //   | |      //   | |         //          
 " |  /         __/ /___         //   |//    | |     //    | |        ((____/ /    
-" by t-truong
+" by (https://github.com/t-truong)
 " Initialization file for { vim }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -14,7 +14,8 @@
 
 
 "Paths==============================================================================================
-let b:Path_config = '~/.config/vim'
+let b:Path_config= '~/.config/vim'
+let b:Path_templates= '/home/tmt/01_General/ricepaddy/00_Templates'
 
 
 
@@ -31,6 +32,18 @@ let &viminfofile=b:Path_config .. '/viminfo'
 
 autocmd BufNewfile,BufRead * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd VimResized * wincmd = "resizes all split screens equally every time the parent terminal is resized
+"File Specifics-------------------------------------------------------------------------------------
+au BufNewFile *.py execute '0r '. b:Path_templates. '/template.py'
+autocmd Filetype python set smartindent
+    \ cinwords=if,elif,else,for,while,try,except,def,class,with
+
+au BufNewFile *.c,*.cpp execute '0r '. b:Path_templates. '/template.cpp'
+au BufNewFile *.h,*.hpp execute '0r '. b:Path_templates. '/template.hpp'
+autocmd Filetype h,hpp,c,cpp set smartindent
+    \ cinwords=public,private
+
+autocmd Filetype vim set smartindent
+    \ cinwords=if,elseif,else,try,catch,function
 
 
 
@@ -38,7 +51,7 @@ autocmd VimResized * wincmd = "resizes all split screens equally every time the 
 
 "Key Maps===============================================================================================
 autocmd Filetype vim let b:comment = '" '
-autocmd Filetype python,zsh,sh,yaml,make let b:comment = '# '
+autocmd Filetype python,zsh,sh,yaml,make,conf let b:comment = '# '
 autocmd Filetype c,h,cpp,hpp let b:comment = '// '
 noremap <silent> <buffer> <Space> :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment,'\/')<CR>/<CR>:noh<CR>j
 noremap <silent> <buffer> <C-N> :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment,'\/')<CR>//e<CR>:noh<CR>j
@@ -67,6 +80,11 @@ function! FindMain()
     catch
         echom("FindMain(): main function not found in file")
     endtry
+endfunction
+
+function! ConvertTabs()
+    set expandtab
+    retab!
 endfunction
 
 
@@ -100,6 +118,6 @@ retab!
 " || / /           / /            // |  //  | |       / ___ (          //         
 " ||/ /           / /            //  | //   | |      //   | |         //          
 " |  /         __/ /___         //   |//    | |     //    | |        ((____/ /    
-" by t-truong
+" by (https://github.com/t-truong)
 " Initialization file for { vim }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

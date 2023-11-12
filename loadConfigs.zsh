@@ -1,7 +1,7 @@
 #!/bin/zsh
 ####################################################################################################
 # loadConfigs.zsh
-# by t-truong
+# by (https://github.com/t-truong)
 # This script harvests rice from the paddy
 #
 # zsh script that copies configuration files in this unitary source to their rightful place
@@ -112,6 +112,10 @@ DestinationPath_dracula="$Path_ConfigDirectory/vim/pack/themes/start"
 
 echo "Loading { $fg[cyan]vim$reset_color } configuration..."
 mkdir -p "$Path_ConfigDirectory/vim/pack/bundle/start" "$Path_ConfigDirectory/vim/pack/themes/start"
+#replace ricepaddy template path in vimrc to proper path
+#cannot hard set this as git repo can be in abitrary path
+#must set path from here
+sed -i -E "s|let b:Path_templates=.*|let b:Path_templates= '${Path_ScriptDirectory}/00_Templates'|" "$OriginPath_vimrc"
 
 cp "$OriginPath_vimrc" "$DestinationPath_vimrc"
 rsync -a "$OriginPath_dracula" "$DestinationPath_dracula" \
@@ -140,6 +144,6 @@ echo "Configurations loaded and ready to be sourced"
 
 ####################################################################################################
 # loadConfigs.sh
-# by t-truong
+# by (https://github.com/t-truong)
 # This script harvests rice from the paddy
 ####################################################################################################

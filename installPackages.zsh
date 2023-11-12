@@ -1,7 +1,7 @@
 #!/bin/zsh
 ####################################################################################################
 # installPackages.zsh
-# by t-truong
+# by (https://github.com/t-truong)
 # This script downloads rice cookers
 #
 # zsh script that installs packages that "rices" the Linux system.
@@ -89,6 +89,6 @@ fi
 
 ####################################################################################################
 # installPackages.zsh
-# by t-truong
+# by (https://github.com/t-truong)
 # This script downloads rice cookers
 ####################################################################################################
