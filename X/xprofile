@@ -6,7 +6,7 @@
 #   / /         / ____ /         / ___ (          //   / /         / ___              / /            / /            / ____     
 #  / /\\       //               //   | |         //   / /         //                 / /            / /            //          
 # / /  \\     //               //    | |        ((___/ /         //               __/ /___         / /____/ /     //____/ /    
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Initialization file for { xinit/LightDM }
 #
 # Specifically, this file is called during LightDM initialization.
@@ -44,6 +44,6 @@ sleep 0.25 && brave &
 #   / /         / ____ /         / ___ (          //   / /         / ___              / /            / /            / ____     
 #  / /\\       //               //   | |         //   / /         //                 / /            / /            //          
 # / /  \\     //               //    | |        ((___/ /         //               __/ /___         / /____/ /     //____/ /    
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Initialization file for { xinit/LightDM }
 ####################################################################################################

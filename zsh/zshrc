@@ -5,7 +5,7 @@
 #   / /            \\            / ___   /         / ___ (          //         
 #  / /               ) )        //    / /         //   | |         //          
 # / /___      ((___ / /        //    / /         //    | |        ((____/ /    
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Initialization file for { zsh }
 ####################################################################################################
 
@@ -18,7 +18,7 @@
 #edit files in the ricepaddy then load them to their properly paths
 #this makes distributing/reusing the MANY configuration files on other Linux systems easier
 #the path immediately below is editted by "loadConfigs.zsh", do not manually change
-local Path_ricepaddy=/home/tmt/01_General/ricepaddy
+local Path_ricepaddy=/home/tmt/01_General/00_ricepaddy
 #system paths
 local Path_bashprofile="$Path_ricepaddy/bash/bash_profile"
 local Path_bashrc="$Path_ricepaddy/bash/bashrc"
@@ -67,7 +67,7 @@ export GIT_CONFIG_GLOBAL="$Path_ricepaddy/git/gitconfig"
 #Alias and Functions================================================================================
 #User Section---------------------------------------------------------------------------------------
 alias sudo="sudo "
-alias loadconfigs="$Path_ricepaddy/loadConfigs.zsh"
+alias loadconfigs="$Path_ricepaddy/loadConfigs.zsh; unalias -a; szshrc"
 #config files
 alias vimrc="vim $Path_vimrc"
 alias tmuxconfig="vim $Path_tmuxconfig"
@@ -197,6 +197,6 @@ source /home/tmt/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #   / /            \\            / ___   /         / ___ (          //         
 #  / /               ) )        //    / /         //   | |         //          
 # / /___      ((___ / /        //    / /         //    | |        ((____/ /    
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Initialization file for { zsh }
 ####################################################################################################

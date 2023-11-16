@@ -6,10 +6,10 @@
 #   / /            \\            / ____           / ___ (        || / /         / ____           / ___ (          / ___ (          //         
 #  / /\\             ) )        //               //   | |        ||/ /         //               //   | |         //   | |         //          
 # / /  \\     ((___ / /        //____/ /        //    | |        |  /         //____/ /        //    | |        //    | |        ((____/ /    
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Initialization file for { xinit }
 #
-# See "https://wiki.archlinux.org/title/xinit#xserverrc" for explanation of file's existence
+# See "https://wiki.archlinux.org/title/xinit#xserverrc" for explanation of file's existence.
 ####################################################################################################
 
 
@@ -29,6 +29,6 @@ exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
 #   / /            \\            / ____           / ___ (        || / /         / ____           / ___ (          / ___ (          //         
 #  / /\\             ) )        //               //   | |        ||/ /         //               //   | |         //   | |         //          
 # / /  \\     ((___ / /        //____/ /        //    | |        |  /         //____/ /        //    | |        //    | |        ((____/ /    
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Initialization file for { xinit }
 ####################################################################################################

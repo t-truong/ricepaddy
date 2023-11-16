@@ -1,7 +1,7 @@
 #!/bin/zsh
 ####################################################################################################
 # loadConfigs.zsh
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # This script harvests rice from the paddy
 #
 # zsh script that copies configuration files in this unitary source to their rightful place
@@ -144,6 +144,6 @@ echo "Configurations loaded and ready to be sourced"
 
 ####################################################################################################
 # loadConfigs.sh
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # This script harvests rice from the paddy
 ####################################################################################################

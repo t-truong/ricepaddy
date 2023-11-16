@@ -6,10 +6,10 @@
 #
 #
 #
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Brief summary
 #
-# Detailed description
+# Detailed description.
 ####################################################################################################
 
 
@@ -23,6 +23,6 @@
 #
 #
 #
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # Brief summary
 ####################################################################################################

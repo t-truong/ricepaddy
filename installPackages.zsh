@@ -1,7 +1,7 @@
 #!/bin/zsh
 ####################################################################################################
 # installPackages.zsh
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # This script downloads rice cookers
 #
 # zsh script that installs packages that "rices" the Linux system.
@@ -24,8 +24,10 @@ InstallFlags="-S"             #Install new package/groups
 
 Path_ScriptDirectory=${0:a:h} #absolute path of this script's directory
 PackageGroups=("xorg")
-Packages=("ttf-space-mono-nerd" "picom" "tmux" "feh" "xdotool" "lightdm" "lightdm-gtk-greeter" #RICE packages
-          "openssh" "python" "python-pip")                                                     #user packages
+Packages=("ttf-space-mono-nerd" "picom" "tmux" "feh" "xdotool" "lightdm" "lightdm-gtk-greeter" #RICE
+          "openssh"                                                                            #cryptography
+          "python" "python-pip" "python-sphinx"                                                #python
+          "noto-fonts-emoji")                                                                  #miscellaneous
 StandalonePackages=("/suckless/dwm" "/suckless/slstatus" "/suckless/st")
 $PackageManager $RefreshFlags
 #Evaluate Package Groups----------------------------------------------------------------------------
@@ -89,6 +91,6 @@ fi
 
 ####################################################################################################
 # installPackages.zsh
-# by (https://github.com/t-truong)
+# by (github.com/t-truong)
 # This script downloads rice cookers
 ####################################################################################################

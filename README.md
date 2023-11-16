@@ -1,4 +1,4 @@
-# Arch Linux RICE
+# Arch Linux RICE :ear_of_rice:
 Behold! The paddy in which I grow mine RICE (and other personal customizations).
 
 Contains:

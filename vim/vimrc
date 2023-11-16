@@ -5,7 +5,7 @@
 " || / /           / /            // |  //  | |       / ___ (          //         
 " ||/ /           / /            //  | //   | |      //   | |         //          
 " |  /         __/ /___         //   |//    | |     //    | |        ((____/ /    
-" by (https://github.com/t-truong)
+" by (github.com/t-truong)
 " Initialization file for { vim }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -15,7 +15,7 @@
 
 "Paths==============================================================================================
 let b:Path_config= '~/.config/vim'
-let b:Path_templates= '/home/tmt/01_General/ricepaddy/00_Templates'
+let b:Path_templates= '/home/tmt/01_General/00_ricepaddy/00_Templates'
 
 
 
@@ -36,11 +36,14 @@ autocmd VimResized * wincmd = "resizes all split screens equally every time the 
 au BufNewFile *.py execute '0r '. b:Path_templates. '/template.py'
 autocmd Filetype python set smartindent
     \ cinwords=if,elif,else,for,while,try,except,def,class,with
+au BufNewfile conf.py execute '0r '. b:Path_templates. '/sphinx-conf.py'
+
 
 au BufNewFile *.c,*.cpp execute '0r '. b:Path_templates. '/template.cpp'
 au BufNewFile *.h,*.hpp execute '0r '. b:Path_templates. '/template.hpp'
 autocmd Filetype h,hpp,c,cpp set smartindent
     \ cinwords=public,private
+
 
 autocmd Filetype vim set smartindent
     \ cinwords=if,elseif,else,try,catch,function
@@ -118,6 +121,6 @@ retab!
 " || / /           / /            // |  //  | |       / ___ (          //         
 " ||/ /           / /            //  | //   | |      //   | |         //          
 " |  /         __/ /___         //   |//    | |     //    | |        ((____/ /    
-" by (https://github.com/t-truong)
+" by (github.com/t-truong)
 " Initialization file for { vim }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
