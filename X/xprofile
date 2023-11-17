@@ -7,12 +7,12 @@
 #  / /\\       //               //   | |         //   / /         //                 / /            / /            //          
 # / /  \\     //               //    | |        ((___/ /         //               __/ /___         / /____/ /     //____/ /    
 # by (github.com/t-truong)
-# Initialization file for { xinit/LightDM }
+# Initialization file for {xinit, LightDM}
 #
 # Specifically, this file is called during LightDM initialization.
-# "/etc/lightdm/Xsession" is called when starting LightDM and that file executes "~/.xprofile"
+# {/etc/lightdm/Xsession} is called when starting LightDM and that file executes {~/.xprofile}
 #
-# This file should basically be the same as "~/.xinitrc" except this file does not "exec" a window
+# This file should basically be the same as {~/.xinitrc} except this file does not "exec" a window
 # manager as its last command. The window manager is run through LightDM.
 ####################################################################################################
 
@@ -45,5 +45,5 @@ sleep 0.25 && brave &
 #  / /\\       //               //   | |         //   / /         //                 / /            / /            //          
 # / /  \\     //               //    | |        ((___/ /         //               __/ /___         / /____/ /     //____/ /    
 # by (github.com/t-truong)
-# Initialization file for { xinit/LightDM }
+# Initialization file for {xinit, LightDM}
 ####################################################################################################

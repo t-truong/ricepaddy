@@ -5,7 +5,7 @@
 # This script downloads rice cookers
 #
 # zsh script that installs packages that "rices" the Linux system.
-# This script requires { zsh make }.
+# This script requires {zsh, make}.
 # vim package is not specified because usually it comes with any Linux distro already.
 ####################################################################################################
 

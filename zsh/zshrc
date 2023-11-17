@@ -6,7 +6,7 @@
 #  / /               ) )        //    / /         //   | |         //          
 # / /___      ((___ / /        //    / /         //    | |        ((____/ /    
 # by (github.com/t-truong)
-# Initialization file for { zsh }
+# Initialization file for {zsh}
 ####################################################################################################
 
 
@@ -198,5 +198,5 @@ source /home/tmt/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #  / /               ) )        //    / /         //   | |         //          
 # / /___      ((___ / /        //    / /         //    | |        ((____/ /    
 # by (github.com/t-truong)
-# Initialization file for { zsh }
+# Initialization file for {zsh}
 ####################################################################################################
